@@ -4,6 +4,9 @@
 // Module Name: IF_ID
 //////////////////////////////////////////////////////////////////////////////////
 
+/*
+comentario dalberth: no hace falta el shamt, hace falta el jump address (bits [25:0])
+*/
 
 module IF_ID(
     input reloj,
