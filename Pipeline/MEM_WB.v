@@ -4,6 +4,10 @@
 // Module Name: MEM_WB
 //////////////////////////////////////////////////////////////////////////////////
 
+/*
+Comentario Dalberth: No estoy seguro pero no será que hay bronca porque acá 
+hay un rd, igual que en IF_ID.
+*/
 
 module MEM_WB(
     input reloj,
