@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /*
-Comentario Dalberth: no hace falta el shamt, hace falta el jump address (bits [25:0])
+Comentario Dalberth: No hace falta el shamt, hace falta el jump address (bits [25:0])
 */
 
 module IF_ID(
