@@ -4,6 +4,11 @@
 // Module Name: ID_EX
 //////////////////////////////////////////////////////////////////////////////////
 
+/*
+Comentario Dalberth: No es necesario avanzar rs por el pipeline. Podría quedar con 
+el mismo nombre pero SIGN_EXT puede ser tanto sign extension como zero extension.
+
+*/
 
 module ID_EX(
     input reloj,
