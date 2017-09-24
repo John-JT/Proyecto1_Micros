@@ -28,7 +28,7 @@ Instrucciones:
 
 12 Set Less Than Imm I
 
-14 Store Halfword R
+13 Store Halfword R
 
 14 Store Word I
 
