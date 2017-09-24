@@ -3,7 +3,6 @@ Sería bueno igual que la vez pasada que programamos en verilog definir nombres 
 Les mandé un pdf con la arquitectura en la que me estoy basando para hacer los registros del pipeline.
 
 Instrucciones:
-
 1 Add R
 2 Add Immediate I
 3 And R
