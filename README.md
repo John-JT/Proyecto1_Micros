@@ -2,7 +2,7 @@
 Sería bueno igual que la vez pasada que programamos en verilog definir nombres comunes para las I/Os.
 Les mandé un pdf con la arquitectura en la que me estoy basando para hacer los registros del pipeline.
 
-Instrucciones:
+Desarrollo de un microprocesador MIPS en verilog, que ejecute las siguientes 15 instrucciones:
 
 1 Add R 
 
