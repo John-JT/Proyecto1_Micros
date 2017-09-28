@@ -64,8 +64,8 @@ module ruta_ctrl(
     parameter desactivo = 1'b1;
     parameter signext = 1'b0;
     parameter zeroext = 1'b1;
-    parameter word = 1'b0;
-    parameter halfword = 1'b1;
+    parameter word = 1'b1;
+    parameter halfword = 1'b0;
     parameter rt = 1'b0;
     parameter rd = 1'b1;
 
@@ -303,6 +303,34 @@ module ruta_ctrl(
             w_h = word;
         default:
             w_h = word;
+      endcase
+    end
+
+    //WB
+    //Manejo de DIR_WB, bit de selección de mux que decide si se hace WB con datos de la memoria o de la ALU
+    always @ (codigop)
+    begin
+      case (codigop)
+        lw:
+            DIR_WB = 1'b0;      //Solo en el loadword se hace writeback con lo que sale de la memoria.
+        default:                //En la mayoría de instrucciones importa lo que sale de la ALU
+            DIR_WB = 1'b1;      //Para j, jr, sh y sw no importa (X) el valor de DIR_WB pero se la da el valor de 1
+      endcase
+    end
+
+    //Se debe activar la escritura del banco de registros para hacer WB para las instrucciones con WB en el banco
+    always @ (codigop) begin
+      case (codigop)
+        j:                          //Para el caso de saltos y stores no se ocupa escribir en el banco de reg
+            REG_WR = desactivo;
+        jr:
+            REG_WR = desactivo;
+        sh:
+            REG_WR = desactivo;
+        sw:
+            REG_WR = desactivo;
+        default:
+            REG_WR = activo;
       endcase
     end
 
