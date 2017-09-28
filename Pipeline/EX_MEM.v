@@ -14,33 +14,33 @@ module EX_MEM(
     input [31:0] DOB,
     output [4:0] rd_rt,
     output [31:0] DI_MEM,
-    output [31:0] DIR_MEM
+    output [6:0] DIR_MEM
     );
-    
- reg [68:0] EX_MEM;
-    
+
+ reg [43:0] EX_MEM;
+
 always @(posedge reloj)
 
 begin
-   if (resetEX) 
+   if (resetEX)
    begin
-      EX_MEM <= 69'b1;
+      EX_MEM <= 44'b1;
    end
-    
-   else if (enableEX) 
+
+   else if (enableEX)
    begin
       EX_MEM <= {Y_ALU,DOB,Y_MUX};
    end
-   
+
    else
       EX_MEM <= EX_MEM;
 end
-						
-    assign DIR_MEM = EX_MEM[68:37];
+
+    assign DIR_MEM = EX_MEM[43:37];
     assign DI_MEM = EX_MEM[36:5];
-    assign rd_rt = EX_MEM[4:0];						
-    
-    
-    
-    
+    assign rd_rt = EX_MEM[4:0];
+
+
+
+
 endmodule
