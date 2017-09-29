@@ -9,38 +9,48 @@ module EX_MEM(
     input reloj,
     input resetEX,
     input enableEX,
-    input [31:0] Y_ALU, //Salida de ALU
+    input [2:0] ctrl_MEM_exe,
+    input [1:0] ctrl_WB_exe,
+    input [31:0] Y_ALU, //Salida de
+    input [31:0] DOB_exe,//salida DOB en la etapa EXE
     input [4:0] Y_MUX, //Salida MUX que elige entre rd y rt para Write Back
-    input [31:0] DOB,
-    output [4:0] rd_rt,
-    output [31:0] DI_MEM,
-    output [6:0] DIR_MEM
+
+    output MEM_RD,
+    output MEM_WR,
+    output w_h,
+    output [1:0] ctrl_WB_mem,
+    output [31:0] DIR,
+    output [31:0] DI,
+    output [4:0] Y_MUX_mem
     );
 
- reg [43:0] EX_MEM;
 
-always @(posedge reloj)
-
-begin
-   if (resetEX)
-   begin
-      EX_MEM <= 44'b1;
-   end
-
-   else if (enableEX)
-   begin
-      EX_MEM <= {Y_ALU,DOB,Y_MUX};
-   end
-
-   else
-      EX_MEM <= EX_MEM;
-end
-
-    assign DIR_MEM = EX_MEM[43:37];
-    assign DI_MEM = EX_MEM[36:5];
-    assign rd_rt = EX_MEM[4:0];
+    reg [73:0] EX_MEM;
 
 
+    always @(posedge reloj)
 
+    begin
+       if (resetEX)
+       begin
+          EX_MEM <= 74'b0;
+       end
+
+       else if (enableEX)
+       begin
+          EX_MEM <= {ctrl_MEM_exe, ctrl_WB_exe, Y_ALU, DOB_exe, Y_MUX};
+       end
+
+       else
+          EX_MEM <= EX_MEM;
+    end
+
+    assign MEM_RD = EX_MEM[73];
+    assign MEM_WR = EX_MEM[72];
+    assign w_h = EX_MEM[71];
+    assign ctrl_WB_mem = EX_MEM[70:69];
+    assign DIR = EX_MEM[68:37];
+    assign DI = EX_MEM[36:5];
+    assign Y_MUX_mem = EX_MEM[4:0];
 
 endmodule
