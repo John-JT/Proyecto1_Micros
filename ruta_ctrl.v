@@ -14,7 +14,6 @@ module ruta_ctrl(
     input wire [5:0] funct,
 
     //Salidas a la etapa IF
-    output wire MEM_RD_I,
     output wire [1:0] SEL_DIR,
 
     //Salidas a la etapa ID
@@ -337,7 +336,6 @@ module ruta_ctrl(
 
 
     //---Asignacion de las Salidas Wire---
-    assign MEM_RD_I = 1'b0;
     assign SEL_DIR = SEL_DIRr;
     assign resetIF = resetIFr;
     assign REG_RD = REG_RDr;
