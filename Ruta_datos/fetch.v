@@ -6,49 +6,46 @@
 // Design Name:
 // Module Name: fetch
 //////////////////////////////////////////////////////////////////////////////////
-
-
 module fetch(
-    input wire [31:0] DOA_exe, jump_exe,
-    input wire reloj,
-    input [1:0] SEL_DIR,
 
-    output wire [3:0] PC_4,
-    output wire [31:0] OUT_REG1);
+input wire [31:0] DOA_exe, jump_exe,
+input wire clock,  MEM_RD,reset,
+input [1:0] SEL_DIR,
 
-    wire [31:0] PC_4_full;
-    reg [31:0] out_mux;
-    reg [31:0] out_REG1;
+output wire [31:0] OUT_mem,
+output wire [31:0] PC_4
+
+    );
+
+    reg [31:0] PC;
+
 
 
 
  ////// mux SEL_DIR
 
-   always @(SEL_DIR, PC_4_full, DOA_exe, jump_exe)
+   always @(posedge clock)
+   if (reset)
+   PC <= 32'd0;
+   else
     case (SEL_DIR)
-       2'b00: out_mux = PC_4_full;
-       2'b01: out_mux = DOA_exe;
-       2'b10: out_mux = jump_exe;
-       2'b11: out_mux = PC_4_full;       // en realidad nunca debería darse
+       2'b00: PC <= PC_4;
+       2'b01: PC <= DOA_exe;
+       2'b10: PC <= jump_exe;
+       2'b11: PC = 0;
     endcase
-
-
- //// registro 1 (antes de memoria de inst)
-
-     always @(posedge reloj)
-     begin
-
-        out_REG1 <= out_mux;
-    end
 
     ///////// sumador
 
 
-    assign PC_4_full =  out_REG1 + 3'b100;
-    assign PC_4 = PC_4_full [31:28];
+ assign PC_4 =  PC + 3'b100;
 
-    ////////// salida a memoria
-    assign OUT_REG1 = out_REG1;
+instruction_mem im(.addr(PC_4),.data(OUT_mem));
+
+
+
+
+
 
 
 endmodule
