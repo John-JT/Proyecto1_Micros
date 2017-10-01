@@ -13,7 +13,6 @@ module ruta_ctrl_tb(
     //Wires de interconexión
     wire [5:0] opcode;
     wire [5:0] funct;
-    wire MEM_RD_I;
     wire [1:0] SEL_DIR;
     wire resetIF;
     wire REG_RD;
@@ -45,7 +44,6 @@ module ruta_ctrl_tb(
     ruta_ctrl inst_ruta_ctrl(
           .opcode(opcode),
           .funct(funct),
-          .MEM_RD_I(MEM_RD_I),
           .SEL_DIR(SEL_DIR),
           .resetIF(resetIF),
           .REG_RD(REG_RD),
