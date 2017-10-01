@@ -8,7 +8,6 @@
 module ID_EX(
     input reloj,
     input resetID,
-    input enableID,
     input [4:0] ctrl_EXE,
     input [2:0] ctrl_MEM,
     input [1:0] ctrl_WB,
@@ -43,14 +42,10 @@ module ID_EX(
           ID_EX  <= 116'b0;
        end
 
-       else if (enableID)
+       else 
        begin
           ID_EX <= {ctrl_EXE, ctrl_MEM, ctrl_WB, DOA, DOB, imm_ext, rt, rd};
        end
-
-       else
-          ID_EX <= ID_EX;
-
     end
 
     assign ALU_FUN = ID_EX[115:113];

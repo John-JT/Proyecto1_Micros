@@ -8,7 +8,6 @@
 module MEM_WB(
     input reloj,
     input resetMEM,
-    input enableMEM,
     input [1:0] ctrl_WB_mem,
     input [31:0] DO, //Salida Memoria de Datos
     input [31:0] DIR, //Entrada Direccion Memoria de Datos
@@ -33,14 +32,10 @@ module MEM_WB(
           MEM_WB <= 71'b0;
        end
 
-       else if (enableMEM)
+       else
        begin
           MEM_WB <= {ctrl_WB_mem, DO, DIR, Y_MUX_mem};
        end
-
-       else
-          MEM_WB <= MEM_WB;
-
     end
 
     assign DIR_WB = MEM_WB[70];

@@ -8,7 +8,6 @@
 module EX_MEM(
     input reloj,
     input resetEX,
-    input enableEX,
     input [2:0] ctrl_MEM_exe,
     input [1:0] ctrl_WB_exe,
     input [31:0] Y_ALU, //Salida de
@@ -36,13 +35,10 @@ module EX_MEM(
           EX_MEM <= 74'b0;
        end
 
-       else if (enableEX)
+       else
        begin
           EX_MEM <= {ctrl_MEM_exe, ctrl_WB_exe, Y_ALU, DOB_exe, Y_MUX};
        end
-
-       else
-          EX_MEM <= EX_MEM;
     end
 
     assign MEM_RD = EX_MEM[73];
