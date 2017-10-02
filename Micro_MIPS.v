@@ -54,16 +54,20 @@ module Micro_MIPS(
     wire MEM_WR;
     wire w_h;
     wire [1:0] ctrl_WB_mem;
-    wire [31:0] DIR;
-    wire [31:0] DI;
+    wire [31:0] DIR_D;
+    wire [31:0] DI_D;
     wire [4:0] Y_MUX_mem;
 
     wire [31:0] DO_D;
     wire DIR_WB;
     wire REG_WR;
-    wire [31:0] DO_wb;
-    wire [31:0] DIR_wb;
+    wire [31:0] DO_D_wb;
+    wire [31:0] DIR_D_wb;
     wire [4:0] Y_MUX_wb;
+
+    wire [31:0] jump_dec;
+
+    wire [31:0] DI_banco;
 
 
 
@@ -128,22 +132,74 @@ module Micro_MIPS(
           .MEM_WR(MEM_WR),
           .w_h(w_h),
           .ctrl_WB_mem(ctrl_WB_mem),
-          .DIR(DIR),
-          .DI(DI),
+          .DIR(DIR_D),
+          .DI(DI_D),
           .Y_MUX_mem(Y_MUX_mem));
     MEM_WB inst_MEM_WB(
           .reloj(reloj),
           .resetMEM(resetM),
           .ctrl_WB_mem(ctrl_WB_mem),
           .DO(DO_D),
-          .DIR(DIR),
+          .DIR(DIR_D),
           .Y_MUX_mem(Y_MUX_mem),
-
           .DIR_WB(DIR_WB),
           .REG_WR(REG_WR),
-          .DO_wb(DO_wb),
-          .DIR_wb(DIR_wb),
+          .DO_wb(DO_D_wb),
+          .DIR_wb(DIR_D_wb),
           .Y_MUX_wb(Y_MUX_wb));
+
+
+
+    //---Instanciación Ruta Datos---
+    fetch inst_fetch(
+          .DOA_exe(DOA),
+          .jump_exe(jump_dec),
+          .reloj(reloj),
+          .reset(resetM),
+          .SEL_DIR(SEL_DIR),
+          .OUT_mem(DO_I),
+          .PC_4(PC_4));
+    decode inst_decode(
+          .reloj(reloj),
+          .DIR_A(rs),
+          .DIR_B(rt),
+          .DIR_WRA(Y_MUX_wb),
+          .DI(DI_banco),
+          .PC_4(PC_4o),
+          .REG_RD(REG_RD),
+          .REG_WR(REG_WR),
+          .SEL_I(SEL_IM),
+          .IMD(imm),
+          .address(JUMP_ADDR),
+          .DOA(DOA),
+          .DOB(DOB),
+          .out_mux_sz(imm_ext),
+          .out_addr(jump_dec));
+    execute inst_execute(
+          .ALU_FUN(ALU_FUN),
+          .input_A(A),
+          .input_sz(imm_ext_exe),
+          .input_register(DOB_exe),
+          .rt(rt_exe),
+          .rd(rd_exe),
+          .SEL_ALU(SEL_ALU),
+          .SEL_REG(SEL_REG),
+          .out_ALU(Y_ALU),
+          .out_dato_registro(DOB_exe),
+          .out_mux_sel_reg(Y_MUX));
+    mem inst_mem(
+          .reloj(reloj),
+          .DI_MEM(DI_D),
+          .DIR_MEM(DIR_D[6:0]),
+          .MEM_RD(MEM_RD),
+          .MEM_WR(MEM_WR),
+          .w_h(w_h),
+          .DO_MEMo(DO_D));
+    wb inst_wb(
+          .DIR_WB(DIR_WB),
+          .DO(DO_D_wb),
+          .DIR(DIR_D_wb),
+          .out_mux_wb(DI_banco));
 
 
 
