@@ -2,6 +2,8 @@
 Sería bueno igual que la vez pasada que programamos en verilog definir nombres comunes para las I/Os.
 Les mandé un pdf con la arquitectura en la que me estoy basando para hacer los registros del pipeline.
 
+El módulo Micro_MIPS es el top, une mediante instanciaiones los módulos del pipe, ruta de datos y ruta de control.
+
 Desarrollo de un microprocesador MIPS en verilog, que ejecute las siguientes 15 instrucciones:
 
 1 Add R 
