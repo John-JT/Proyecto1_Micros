@@ -8,7 +8,7 @@ module instruction_mem (
   input [31:0] addr,
   output [31:0] data
   );
-  reg [31:0] mem [0:51]; //Memoria de 32bits con 17 entradas
+  reg [31:0] mem [0:51]; //Memoria de 32bits con 52 entradas
 
   parameter archivo = "mem_inst.txt";
 
