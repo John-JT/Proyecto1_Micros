@@ -9,35 +9,40 @@
 
 
 module fetch(
-  input wire [31:0] DOA_exe, jump_exe,
+  input wire [5:0] DOA_exe, jump_exe,
   input wire reloj,reset,
   input [1:0] SEL_DIR,
+  output wire [5:0] P_C,
+  output wire [31:0] OUT_mem);
 
-  output wire [31:0] OUT_mem,
-  output wire [3:0] PC_4);
 
-    
-  reg [31:0] PC;
-  wire [31:0] PC_4_32;  
+  reg [5:0] PC = 6'b000000;
+  //wire [5:0] PC_4;
 
 
   ////// mux SEL_DIR
   always @(posedge reloj)
   if (reset)
-    PC <= 32'b0;
+    begin
+        PC <= 6'b000000;
+    end
   else
-  case (SEL_DIR)
-     2'b00: PC <= PC_4_32;
-     2'b01: PC <= jump_exe;
-     2'b10: PC <= DOA_exe;
-     2'b11: PC <= 32'b0;
-  endcase
+    begin
+        case (SEL_DIR)
+         2'b00: PC <= PC + 6'b000001;
+         2'b01: PC <= jump_exe;
+         2'b10: PC <= DOA_exe;
+         2'b11: PC <= 6'b0;
+        endcase
+    end
+
+    assign P_C = PC;
 
   ///////// sumador
-  assign PC_4_32 =  PC + 3'b100;
-  assign PC_4 = PC_4_32[31:28];
-  
+  //assign PC_4 = PC + 6'b000001;
 
+
+  //////// memoria de instrucciones
   instruction_mem im(.addr(PC),.data(OUT_mem));
 
 

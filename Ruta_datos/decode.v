@@ -12,12 +12,12 @@ module decode(
     input reloj,
     input [4:0] DIR_A, DIR_B, DIR_WRA,
     input [31:0] DI,
-    input [3:0] PC_4,
     input REG_RD, REG_WR, SEL_I,
     input [15:0] IMD,
-    input [25:0] address,
+    input [5:0] address,
 
-    output [31:0] DOA, DOB, out_mux_sz, out_addr);
+    output [31:0] DOA, DOB, out_mux_sz, 
+    output [5:0] out_addr);
 
 
     reg [31:0] routA, routB = 32'b0;
@@ -73,7 +73,7 @@ module decode(
 
 
     /////// calculo para jump addr
-    assign out_addr = {PC_4,address,2'b00};
+    assign out_addr = {address};
 
 
 endmodule
