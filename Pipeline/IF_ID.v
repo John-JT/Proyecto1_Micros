@@ -8,21 +8,20 @@
 module IF_ID(
     input reloj,
     input resetIF,
-    input [3:0] PC_4, //Salida de Sumador de PC+4
     input [31:0] DO, //Salida de Memoria de Instrucciones
 
     output [5:0] opcode,
     output [5:0] funct,
-    output [25:0] JUMP_ADDR,
-    output [3:0] PC_4o,
+    output [5:0] JUMP_ADDR,
     output [4:0] rs,
     output [4:0] rt,
     output [4:0] rd,
-    output [15:0] imm
+    output [15:0] imm,
+    output [31:0] aux
     );
 
 
-    reg [35:0] IF_ID;
+    reg [31:0] IF_ID;
 
 
     always @(posedge reloj)
@@ -30,22 +29,22 @@ module IF_ID(
     begin
         if (resetIF)
         begin
-            IF_ID <= 36'b0;
+            IF_ID <= 32'b0;
         end
 
         else
         begin
-            IF_ID <= {PC_4,DO};
+            IF_ID <= {DO};
         end
     end
 
       assign opcode = IF_ID[31:26];
       assign funct = IF_ID[5:0];
-      assign JUMP_ADDR = IF_ID[25:0];
-      assign PC_4o = IF_ID[35:32];
+      assign JUMP_ADDR = IF_ID[5:0];
       assign rs = IF_ID[25:21];
       assign rt = IF_ID[20:16];
       assign rd = IF_ID[15:11];
       assign imm = IF_ID[15:0];
 
+      assign aux = IF_ID;
 endmodule
