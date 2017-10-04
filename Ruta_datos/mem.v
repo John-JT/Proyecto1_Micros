@@ -23,8 +23,8 @@ module mem (
     begin
           case (ctrl_MEM)
             3'b011: DO_MEMor <= mem[DIR_MEM];             //Se lee una palabra completa de memoria
-            3'b100: mem[DIR_MEM][15:0] <= DI_MEM[15:0];   //Se guarda una palabra completa en memoria
-            3'b101: mem[DIR_MEM] <= DI_MEM;               //Se guarda media palabra en memoria
+            3'b100: mem[DIR_MEM] <= {16'b0,DI_MEM[15:0]};   //Se guarda media palabra  en memoria
+            3'b101: mem[DIR_MEM] <= DI_MEM;               //Se guarda una palabra completa en memoria
             default: DO_MEMor <= 32'b0;
           endcase
     end

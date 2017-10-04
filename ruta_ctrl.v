@@ -134,10 +134,36 @@ module ruta_ctrl(
     always @ (codigop)
     begin
       case (codigop)
-        j:
-            REG_RDr = desactivo;
+          add:
+              REG_RDr = activo;
+          addi:
+              REG_RDr = activo;
+          aand:
+              REG_RDr = activo;
+          andi:
+              REG_RDr = activo;
+          jr:    
+              REG_RDr = activo;
+          lw:
+              REG_RDr = activo;
+          nnor:
+              REG_RDr = activo;
+          oor:
+              REG_RDr = activo;
+          ori:
+              REG_RDr = activo;
+          slt:
+              REG_RDr = activo;
+          slti:
+              REG_RDr = activo;
+          sh:
+              REG_RDr = activo;
+          sw:    
+              REG_RDr = activo;
+          sub:     
+              REG_RDr = activo;
         default:
-            REG_RDr = activo;
+            REG_RDr = desactivo;
       endcase
     end
 
@@ -320,16 +346,30 @@ module ruta_ctrl(
     //Se debe activar la escritura del banco de registros para hacer WB para las instrucciones con WB en el banco
     always @ (codigop) begin
       case (codigop)
-        j:                          //Para el caso de saltos y stores no se ocupa escribir en el banco de reg
-            REG_WR = desactivo;
-        jr:
-            REG_WR = desactivo;
-        sh:
-            REG_WR = desactivo;
-        sw:
-            REG_WR = desactivo;
-        default:
+        add:
             REG_WR = activo;
+        addi:
+            REG_WR = activo;
+        aand:
+            REG_WR = activo;
+        andi:
+            REG_WR = activo;
+        lw:
+            REG_WR = activo;
+        nnor:
+            REG_WR = activo;
+        oor:
+            REG_WR = activo;
+        ori:
+            REG_WR = activo;
+        slt:
+            REG_WR = activo;
+        slti:
+            REG_WR = activo;
+        sub:     
+            REG_WR = activo;
+        default:
+            REG_WR = desactivo;
       endcase
     end
 

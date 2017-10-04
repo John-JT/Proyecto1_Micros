@@ -15,7 +15,11 @@ module Micro_MIPS(
     output wire [31:0] aux1,
     output wire [115:0] aux2,
     output wire [73:0] aux3,
-    output wire [70:0] aux4);
+    output wire [31:0] DI_banco,
+    output wire [4:0] DIR_WRA,
+    output wire REG_WR,
+    output wire [70:0] aux4,
+    output wire [31:0] DO_D);
 
 
 
@@ -44,9 +48,9 @@ module Micro_MIPS(
     wire [1:0] ctrl_WB;
 
     //decode
-    wire [4:0] DIR_WRA;
-    wire [31:0] DI_banco;
-    wire REG_WR;
+    /////wire [4:0] DIR_WRA;
+    /////wire [31:0] DI_banco;
+    ////////wire REG_WR;
     wire [31:0] DOA;
     wire [31:0] DOB;
     wire [31:0] imm_ext;
@@ -78,7 +82,7 @@ module Micro_MIPS(
     wire [4:0] Y_MUX_mem;
 
     //mem
-    wire [31:0] DO_D;
+//    wire [31:0] DO_D;
 
     //MEM_WB
     wire DIR_WB;

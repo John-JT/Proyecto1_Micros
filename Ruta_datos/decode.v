@@ -7,7 +7,8 @@
 // Module Name: decode
 //////////////////////////////////////////////////////////////////////////////////
 
-
+`ifndef DEBUG_CPU_REG
+`define DEBUG_CPU_REG 0
 module decode(
     input reloj,
     input [4:0] DIR_A, DIR_B, DIR_WRA,
@@ -23,6 +24,27 @@ module decode(
     reg [31:0] routA, routB = 32'b0;
     reg [31:0] registro [0:31];
     reg [31:0] out_sign, out_zero = 0;
+
+initial begin
+		if (`DEBUG_CPU_REG) begin
+			$display("     $v0,      $v1,      $t0,      $t1,      $t2,      $t3,      $t4,      $t5,      $t6,      $t7,      $t8,      $t9");
+			$monitor("%x, %x, %x, %x, %x, %x, %x, %x, %x, %x, %x, %x",
+					registro[1][31:0],	/* $v0 */
+					registro[2][31:0],	/* $v1 */
+					registro[3][31:0],	/* $t0 */
+					registro[4][31:0],	/* $t1 */
+					registro[5][31:0],	/* $t2 */
+					registro[6][31:0],	/* $t3 */
+					registro[7][31:0],	/* $t4 */
+					registro[8][31:0],	/* $t5 */
+					registro[9][31:0],	/* $t6 */
+					registro[10][31:0],	/* $t7 */
+					registro[11][31:0],	/* $t7 */
+					registro[12][31:0],	/* $t7 */
+				);
+		end
+	end
+
 
 
    ////////// banco de registros
@@ -74,6 +96,5 @@ module decode(
 
     /////// calculo para jump addr
     assign out_addr = {address};
-
-
 endmodule
+`endif
