@@ -28,7 +28,6 @@ module EX_MEM(
 
 
     always @(posedge reloj)
-
     begin
        if (resetEX)
        begin
@@ -41,6 +40,7 @@ module EX_MEM(
        end
     end
 
+
     assign MEM_RD = EX_MEM[73];
     assign MEM_WR = EX_MEM[72];
     assign w_h = EX_MEM[71];
@@ -48,5 +48,6 @@ module EX_MEM(
     assign DIR = EX_MEM[68:37];
     assign DI = EX_MEM[36:5];
     assign Y_MUX_mem = EX_MEM[4:0];
+
 
 endmodule
