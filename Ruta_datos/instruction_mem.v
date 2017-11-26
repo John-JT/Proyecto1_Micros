@@ -5,13 +5,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module instruction_mem (
- // input reloj, reset,
-  input [5:0] addr,
+  input [31:0] addr,
   output [31:0] data
   );
-  reg [31:0] mem [0:55]; //Memoria de 32bits con 52 entradas
-  //reg [31:0] datareg;
 
+  reg [31:0] mem [0:55]; //Memoria de 32bits con 52 entradas
   parameter archivo = "mem_inst.txt";
 
   initial
@@ -19,16 +17,6 @@ module instruction_mem (
         $readmemb(archivo,mem,0,55);
     end
 
-    assign data = mem[addr];
-    
-    /*
-    always @ (posedge reloj)
-    begin
-      if (reset) datareg <= 32'b0;
-      else datareg <= mem[addr];
-    end
+  assign data = mem[addr[9:2]];
 
-    assign data = datareg;
-    */
-    
 endmodule //instruction_mem

@@ -31,7 +31,7 @@ slti 001010|00101|01011|0000 0000 0000 1100| // Guardo slti de registro 5 con 0x
 sh   101001|00001|01111|0000 0000 0000 0100| // Guardo halfword de  contenido registro 15 en 4($registro1)
 lw   100011|00001|10000|0000 0000 0000 0100| // Cargo contenido de posicion 4($registro1) en registro 16**
 sub  000000|00101|01001|01100|00000|100010| // Guardo resta de registro 5 menos registro 9 en 12
-addi 001000|00000|00010|0000 0000 0011 0111| // Guardo 0x0037 en registro 2
+addi 001000|00000|00010|0000 0000 1101 1100| // Guardo 0x00DC en registro 2
 jr   000000|00010|00001|00011|00000|011000| // Se hace un jump register al valor del registro 2
 j    000010|00 0000 0000 0000 0000 0000 0010| Salto a 2(No se si esta bien planteado)
 
